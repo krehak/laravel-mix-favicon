@@ -1,0 +1,40 @@
+{
+  "name": "laravel-mix-favicon",
+  "version": "0.0.1",
+  "description": "Laravel Mix extension to generate favicons and include them into the HTML from single PNG image.",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "README.md",
+    "package.json"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/debute/laravel-mix-favicon.git"
+  },
+  "keywords": [
+    "laravel mix",
+    "webpack",
+    "watch",
+    "favicon",
+    "rfg",
+    "generator",
+    "injecting"
+  ],
+  "author": "Patrik Krehák",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/debute/laravel-mix-favicon/issues"
+  },
+  "homepage": "https://github.com/debute/laravel-mix-favicon",
+  "peerDependencies": {
+    "laravel-mix": "^4.0.7"
+  },
+  "dependencies": {
+    "chokidar": "3.0.2",
+    "gulp-real-favicon": "^0.3.2"
+  }
+}

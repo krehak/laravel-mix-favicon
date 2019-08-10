@@ -1,0 +1,11 @@
+/node_modules
+/.idea
+/.vscode
+/.vagrant
+/.gulp
+npm-debug.log
+yarn-error.log
+.phpunit.result.cache
+.editorconfig
+package.lock
+package-lock.json
