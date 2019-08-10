@@ -1,6 +1,6 @@
 {
   "name": "laravel-mix-favicon",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Laravel Mix extension to generate favicons and include them into the HTML from single PNG image.",
   "main": "index.js",
   "files": [
