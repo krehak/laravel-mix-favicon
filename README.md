@@ -53,11 +53,11 @@ If nothing is passed to the extension inside your Laravel Mix config, the follow
 
 #### Option details
 
-* `inputPath` (string). Your favicon data path. There will be temporaly saved generated JSON for injecting HTML code (if enabled*).
+* `inputPath` (string). Your favicon data path. There will be temporarily saved generated JSON for injecting HTML code (if `blade` option enabled).
 * `inputFile` (string). Files to watch. It is **not recommended** to change this option!
 * `publicPath` (string). Your application's public path.
-* `output` (string). Where generated files will be saved. Relative to the `publicPath`.
+* `output` (string). Where generated files will be saved. Relative to the `publicPath` option.
 * `dataFile` (string). Temporary data file while generating HTML. It is **not recommended** to change this option!
-* *`blade` (string or boolean). Path to blade file, where generated HTML code will be saved. This will overwrite whole file. _Note: set this option to `false` to disabled injecting HTML code._
+* `blade` (string or boolean). Path to blade file, where generated HTML code will be saved. This will overwrite whole file. _Note: set this option to `false` to disabled injecting HTML code._
 * `reload` (boolean). Whenever to reload browser after success. _Note: this option has no effect if you are using [laravel-mix-blade-reload](https://www.npmjs.com/package/laravel-mix-blade-reload) extension._
 * `debug` (boolean). Whenever to log extension events messages to the console.

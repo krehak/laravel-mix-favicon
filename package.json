@@ -1,7 +1,7 @@
 {
   "name": "laravel-mix-favicon",
-  "version": "0.0.2",
-  "description": "Laravel Mix extension to generate favicons and include them into the HTML from single PNG image.",
+  "version": "0.1.0",
+  "description": "Laravel Mix extension to generate favicons and include them into the HTML from single PNG/JPG/SVG image.",
   "main": "index.js",
   "files": [
     "index.js",
@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "chokidar": "3.0.2",
-    "gulp-real-favicon": "^0.3.2"
+    "gulp-real-favicon": "^0.3.2",
+    "shelljs": "^0.8.3"
   }
 }

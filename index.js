@@ -2,6 +2,7 @@ const mix = require('laravel-mix');
 const chokidar = require('chokidar');
 const fs = require('fs');
 const realFavicon = require('gulp-real-favicon');
+const shell = require('shelljs');
 
 class Favicon {
 
@@ -10,7 +11,7 @@ class Favicon {
     }
 
     dependencies() {
-        return ['chokidar', 'gulp-real-favicon'];
+        return ['chokidar', 'gulp-real-favicon', 'shelljs'];
     }
 
     register(options) {
@@ -30,16 +31,12 @@ class Favicon {
         let self = this;
         let sourcePath = this.options.inputPath + '/' + this.options.inputFile;
 
-        fs.mkdir(path.dirname(sourcePath), {
-            recursive: true
-        }, (err) => {
-            if(err) throw err;
-        });
+        this.mkdir(this.options.inputPath);
 
         chokidar.watch(sourcePath, {
             ignoreInitial: false
         }).on('add', (_path) => {
-            self.generate_favicon(_path);
+            self.generateFavicon(_path);
         });
     }
 
@@ -71,18 +68,15 @@ class Favicon {
         return void(8);
     }
 
-    generate_favicon(_path) {
+    generateFavicon(_path) {
         let self = this;
         let dataFilePath = this.options.inputPath + '/' + this.options.dataFile;
         let destinationPath = this.options.publicPath + '/' + this.options.output;
 
-        fs.mkdir(path.dirname(dataFilePath), {
-            recursive: true
-        }, (err) => {
-            if(err) throw err;
-        });
+        this.mkdir(path.dirname(dataFilePath));
+        this.clearDir(destinationPath);
 
-        self.log('Favicon is generating, please, wait a moment...');
+        self.log('Favicon is generating, wait a moment, please...');
 
         realFavicon.generateFavicon({
             masterPicture: _path,
@@ -138,11 +132,7 @@ class Favicon {
             markupFile: dataFilePath
         }, () => {
             if(self.options.blade !== false && self.options.blade !== null) {
-                fs.mkdir(path.dirname(self.options.blade), {
-                    recursive: true
-                }, (err) => {
-                    if(err) throw err;
-                });
+                self.mkdir(path.dirname(self.options.blade));
 
                 let html = JSON.parse(
                     fs.readFileSync(dataFilePath)
@@ -174,6 +164,26 @@ class Favicon {
 
     error(message) {
         console.error('laravel-mix-' + this.name() + ': ' + message);
+    }
+
+    mkdir(directory) {
+        if(!fs.existsSync(directory)) {
+            shell.mkdir('-p', directory);
+        }
+    }
+
+    clearDir(directory) {
+        if(fs.existsSync(directory)) {
+            fs.readdir(directory, (err, files) => {
+                if(err) throw err;
+
+                for(let file of files) {
+                    fs.unlink(path.join(directory, file), err => {
+                        if(err) throw err;
+                    });
+                }
+            });
+        }
     }
 
 }
