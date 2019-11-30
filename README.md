@@ -1,4 +1,4 @@
-# Laravel Mix Favicon
+# Laravel Mix Favicon and Theme
 
 **Laravel Mix extension to generate favicons and include them into the HTML from single PNG/JPG/SVG image.**
 
@@ -48,7 +48,7 @@ If nothing is passed to the extension inside your Laravel Mix config, the follow
     blade: 'resources/views/layout/favicon.blade.php',
     reload: false,
     debug: false,
-	bgColor: '#ffffff'
+    bgColor: '#ffffff'
 }
 ```
 
