@@ -47,7 +47,8 @@ If nothing is passed to the extension inside your Laravel Mix config, the follow
     dataFile: 'data/faviconData.json',
     blade: 'resources/views/layout/favicon.blade.php',
     reload: false,
-    debug: false
+    debug: false,
+	bgColor: '#ffffff'
 }
 ```
 
@@ -61,3 +62,4 @@ If nothing is passed to the extension inside your Laravel Mix config, the follow
 * `blade` (string or boolean). Path to blade file, where generated HTML code will be saved. This will overwrite whole file. _Note: set this option to `false` to disabled injecting HTML code._
 * `reload` (boolean). Whenever to reload browser after success. _Note: this option has no effect if you are using [laravel-mix-blade-reload](https://www.npmjs.com/package/laravel-mix-blade-reload) extension._
 * `debug` (boolean). Whenever to log extension events messages to the console.
+* `bgColor` (string). Theme color.

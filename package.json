@@ -1,6 +1,6 @@
 {
-  "name": "laravel-mix-favicon",
-  "version": "0.1.0",
+  "name": "laravel-mix-favicon-theme",
+  "version": "0.1.1",
   "description": "Laravel Mix extension to generate favicons and include them into the HTML from single PNG/JPG/SVG image.",
   "main": "index.js",
   "files": [
@@ -20,6 +20,7 @@
     "webpack",
     "watch",
     "favicon",
+	"theme"
     "rfg",
     "generator",
     "injecting"
