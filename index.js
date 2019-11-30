@@ -23,7 +23,8 @@ class Favicon {
             dataFile: 'data/faviconData.json',
             blade: 'resources/views/layout/favicon.blade.php',
             reload: false,
-            debug: false
+            debug: false,
+			bgColor: '#ffffff'
         }, options || {});
     }
 
@@ -95,7 +96,7 @@ class Favicon {
                 desktopBrowser: {},
                 windows: {
                     pictureAspect: 'noChange',
-                    backgroundColor: '#ffffff',
+                    backgroundColor: this.options.bgColor,
                     onConflict: 'override',
                     assets: {
                         windows80Ie10Tile: false,
@@ -109,7 +110,7 @@ class Favicon {
                 },
                 androidChrome: {
                     pictureAspect: 'noChange',
-                    themeColor: '#ffffff',
+                    themeColor: this.options.bgColor,
                     manifest: {
                         display: 'standalone',
                         orientation: 'notSet',
