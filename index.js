@@ -24,7 +24,7 @@ class Favicon {
             blade: 'resources/views/layout/favicon.blade.php',
             reload: false,
             debug: false,
-			bgColor: '#ffffff'
+            bgColor: '#ffffff'
         }, options || {});
     }
 
