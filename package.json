@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/debute/laravel-mix-favicon.git"
+    "url": "git+https://github.com/krehak/laravel-mix-favicon.git"
   },
   "keywords": [
     "laravel mix",
@@ -27,9 +27,9 @@
   "author": "Patrik Krehák",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/debute/laravel-mix-favicon/issues"
+    "url": "https://github.com/krehak/laravel-mix-favicon/issues"
   },
-  "homepage": "https://github.com/debute/laravel-mix-favicon",
+  "homepage": "https://github.com/krehak/laravel-mix-favicon",
   "peerDependencies": {
     "laravel-mix": "^4.0.7"
   },
