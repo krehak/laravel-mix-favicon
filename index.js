@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const chokidar = require('chokidar');
 const fs = require('fs');
+const path = require('path');
 const realFavicon = require('gulp-real-favicon');
 const shell = require('shelljs');
 
@@ -74,7 +75,12 @@ class Favicon {
             blade: 'resources/views/layout/favicon.blade.php',
             reload: false,
             debug: false,
-            configPath: './realfavicongenerator-config.json'
+            configPath: './realfavicongenerator-config.json',
+            cleaner: {
+                use: true,
+                path: null,
+                timestamp: true
+            }
         }, options || {});
 
         if(fs.existsSync(this.options.configPath)) {
@@ -163,15 +169,13 @@ class Favicon {
                     if(err) {
                         self.error(err);
                     } else {
-                        fs.unlinkSync(_path);
-                        fs.unlinkSync(dataFilePath);
+                        self.removeTemporaryFiles(_path, dataFilePath);
                         self.log('Favicon was generated! [HTML in: ' + self.options.blade + ']');
                         self.reload();
                     }
                 });
             } else {
-                fs.unlinkSync(_path);
-                fs.unlinkSync(dataFilePath);
+                self.removeTemporaryFiles(_path, dataFilePath);
                 self.log('Favicon was generated! [without injecting HTML]');
             }
         });
@@ -231,6 +235,25 @@ class Favicon {
         }
 
         return target;
+    }
+
+    removeTemporaryFiles(imagePath, dataFilePath) {
+        fs.unlinkSync(dataFilePath);
+
+        if(this.options.cleaner.use) {
+            if(this.options.cleaner.path === null) {
+                fs.unlinkSync(imagePath);
+            } else {
+                let cleaUpDirPath = this.options.inputPath + '/' + this.options.cleaner.path;
+                this.mkdir(cleaUpDirPath);
+
+                let extname = path.extname(imagePath);
+                let basename = path.basename(imagePath, extname);
+                let postfix = this.options.cleaner.timestamp ? ('-' + (new Date()).toISOString().replace(/[\.|:]/gm, '-')) : '';
+                let newPath = `${cleaUpDirPath}/${basename}${postfix}${extname}`;
+                fs.rename(imagePath, newPath, () => {});
+            }
+        }
     }
 
 }
