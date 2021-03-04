@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/krehak/laravel-mix-favicon",
   "peerDependencies": {
-    "laravel-mix": "^4.0.7"
+    "laravel-mix": "^6.0"
   },
   "dependencies": {
     "chokidar": "3.0.2",
