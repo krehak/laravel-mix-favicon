@@ -114,19 +114,19 @@ class Favicon {
     }
 
     webpackConfig(webpackConfig) {
-        this.webpackOriginalAfterCallback = webpackConfig.devServer.after;
+        this.webpackOriginalAfterCallback = webpackConfig.devServer.onAfterSetupMiddleware;
 
         let self = this;
 
         this.log('webpack config updated');
-        webpackConfig.devServer.after = (app, server) => {
-            self.after(app, server);
+        webpackConfig.devServer.onAfterSetupMiddleware = (server, compiler) => {
+            self.after(server, compiler);
         };
     }
 
-    after(app, server) {
+    after(server, compiler) {
         if(typeof this.webpackOriginalAfterCallback === 'function') {
-            this.webpackOriginalAfterCallback(app, server);
+            this.webpackOriginalAfterCallback(server, compiler);
         }
 
         this.serverHandler = server;

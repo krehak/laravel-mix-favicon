@@ -76,10 +76,11 @@ If nothing is passed to the extension inside your Laravel Mix config, the follow
 * `path` (string or null). Use "string" as path relative to the `inputPath` option. Use null to automatically remove source file.
 * `timestamp` (boolean). Whenever to add timestamp as postfix to the source file before save (valid only if the `cleaner.path` option is provided as a string).
 
-### New in version 0.2.2
+### New in version 0.3.0
+* Now supports `laravel-mix` version 6 (will become major version once rewritten to typescript)
 
-You can now use `cleaner` option.
+### New in version 0.2.2
+* You can now use `cleaner` option.
 
 ### New in version 0.2.0
-
-Laravel Mix Favicon now creates JSON file `realfavicongenerator-config.json` in the root folder with options such as `themeColor`, `pictureAspect`, `scalingAlgorithm` and more. This file will be created after first run. After updating this file you have to re-run your mix to take an effect.
+* Laravel Mix Favicon now creates JSON file `realfavicongenerator-config.json` in the root folder with options such as `themeColor`, `pictureAspect`, `scalingAlgorithm` and more. This file will be created after first run. After updating this file you have to re-run your mix to take an effect.
