@@ -77,7 +77,7 @@ If nothing is passed to the extension inside your Laravel Mix config, the follow
 * `timestamp` (boolean). Whenever to add timestamp as postfix to the source file before save (valid only if the `cleaner.path` option is provided as a string).
 
 ### New in version 0.3.0
-* Now supports `laravel-mix` version 6 (will become major version once rewritten to typescript)
+* Now supports `laravel-mix` version 6
 
 ### New in version 0.2.2
 * You can now use `cleaner` option.
