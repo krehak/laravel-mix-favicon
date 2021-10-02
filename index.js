@@ -6,6 +6,55 @@ const realFavicon = require('gulp-real-favicon');
 const shell = require('shelljs');
 
 class Favicon {
+    defaultConfig = {
+        design: {
+            ios: {
+                pictureAspect: 'noChange',
+                assets: {
+                    ios6AndPriorIcons: false,
+                    ios7AndLaterIcons: false,
+                    precomposedIcons: false,
+                    declareOnlyDefaultIcon: true
+                }
+            },
+            desktopBrowser: {},
+            windows: {
+                pictureAspect: 'noChange',
+                backgroundColor: '#ffffff',
+                onConflict: 'override',
+                assets: {
+                    windows80Ie10Tile: false,
+                    windows10Ie11EdgeTiles: {
+                        small: false,
+                        medium: true,
+                        big: false,
+                        rectangle: false
+                    }
+                }
+            },
+            androidChrome: {
+                pictureAspect: 'noChange',
+                themeColor: '#ffffff',
+                manifest: {
+                    display: 'standalone',
+                    orientation: 'notSet',
+                    onConflict: 'override',
+                    declared: true
+                },
+                assets: {
+                    legacyIcon: false,
+                    lowResolutionIcons: false
+                }
+            }
+        },
+        settings: {
+            scalingAlgorithm: 'Mitchell',
+            errorOnImageTooSmall: false,
+            readmeFile: false,
+            htmlCodeFile: false,
+            usePathAsIs: false
+        }
+    };
 
     name() {
         return 'favicon';
@@ -16,56 +65,6 @@ class Favicon {
     }
 
     register(options) {
-        let config = {
-            design: {
-                ios: {
-                    pictureAspect: 'noChange',
-                    assets: {
-                        ios6AndPriorIcons: false,
-                        ios7AndLaterIcons: false,
-                        precomposedIcons: false,
-                        declareOnlyDefaultIcon: true
-                    }
-                },
-                desktopBrowser: {},
-                windows: {
-                    pictureAspect: 'noChange',
-                    backgroundColor: '#ffffff',
-                    onConflict: 'override',
-                    assets: {
-                        windows80Ie10Tile: false,
-                        windows10Ie11EdgeTiles: {
-                            small: false,
-                            medium: true,
-                            big: false,
-                            rectangle: false
-                        }
-                    }
-                },
-                androidChrome: {
-                    pictureAspect: 'noChange',
-                    themeColor: '#ffffff',
-                    manifest: {
-                        display: 'standalone',
-                        orientation: 'notSet',
-                        onConflict: 'override',
-                        declared: true
-                    },
-                    assets: {
-                        legacyIcon: false,
-                        lowResolutionIcons: false
-                    }
-                }
-            },
-            settings: {
-                scalingAlgorithm: 'Mitchell',
-                errorOnImageTooSmall: false,
-                readmeFile: false,
-                htmlCodeFile: false,
-                usePathAsIs: false
-            }
-        };
-
         this.options = Object.assign({
             inputPath: 'resources/favicon',
             inputFile: '*.{jpg,png,svg}',
@@ -82,22 +81,6 @@ class Favicon {
                 timestamp: true
             }
         }, options || {});
-
-        if(fs.existsSync(this.options.configPath)) {
-            let fileConfig = fs.readFileSync(this.options.configPath);
-
-            try {
-                config = this.mergeDeep(config, JSON.parse(fileConfig) || {});
-            } catch(e) {
-                this.error(`RealFaviconGenerator config file is damaged! (${e})`);
-            }
-        } else {
-            fs.writeFileSync(this.options.configPath, JSON.stringify(config, null, 1), { flag: 'w' });
-
-            this.log('Config file created successfully!');
-        }
-
-        this.options.config = config;
     }
 
     boot() {
@@ -141,11 +124,31 @@ class Favicon {
         return void(8);
     }
 
+    getConfig() {
+        let config = this.defaultConfig;
+
+        if(fs.existsSync(this.options.configPath)) {
+            let fileConfig = fs.readFileSync(this.options.configPath);
+
+            try {
+                config = this.mergeDeep(config, JSON.parse(fileConfig) || {});
+            } catch(e) {
+                this.error(`RealFaviconGenerator config file is damaged! (${e})`);
+            }
+        } else {
+            fs.writeFileSync(this.options.configPath, JSON.stringify(config, null, 4), { flag: 'w' });
+
+            this.log('Config file created successfully!');
+        }
+
+        return config;
+    }
+
     generateFavicon(_path) {
         let self = this;
         let dataFilePath = this.options.inputPath + '/' + this.options.dataFile;
-        let destinationPath = this.options.publicPath + '/' + this.options.output;
-        let config = this.options.config;
+        let destinationPath = (this.options.publicPath + '/' + this.options.output).replace(/\/\//g, '/');
+        let config = this.getConfig();
 
         this.mkdir(path.dirname(dataFilePath));
         this.clearDir(destinationPath);
