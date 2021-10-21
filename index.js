@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const realFavicon = require('gulp-real-favicon');
 const shell = require('shelljs');
+const glob = require('glob');
 
 class Favicon {
     defaultConfig = {
@@ -84,16 +85,21 @@ class Favicon {
     }
 
     boot() {
-        let self = this;
         let sourcePath = this.options.inputPath + '/' + this.options.inputFile;
 
         this.mkdir(this.options.inputPath);
 
-        chokidar.watch(sourcePath, {
-            ignoreInitial: false
-        }).on('add', (_path) => {
-            self.generateFavicon(_path);
-        });
+        if(mix.inProduction()) {
+            glob(sourcePath, {}, (er, files) => {
+                if(!er) files.forEach((_path) => this.generateFavicon(_path));
+            });
+        } else {
+            chokidar.watch(sourcePath, {
+                ignoreInitial: false
+            }).on('add', (_path) => {
+                this.generateFavicon(_path);
+            });
+        }
     }
 
     webpackConfig(webpackConfig) {
@@ -258,7 +264,6 @@ class Favicon {
             }
         }
     }
-
 }
 
 mix.extend('favicon', new Favicon());
