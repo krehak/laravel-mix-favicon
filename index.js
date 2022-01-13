@@ -251,7 +251,7 @@ class Favicon {
 
         if(this.options.cleaner.use) {
             if(this.options.cleaner.path === null) {
-                fs.unlinkSync(imagePath);
+                if(fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
             } else {
                 let cleaUpDirPath = this.options.inputPath + '/' + this.options.cleaner.path;
                 this.mkdir(cleaUpDirPath);
